@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GREENLEAF</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <script>
+    function doShowprev(fileCtrl, prev) {
+      let file = fileCtrl.files[0];
+      if (file) {
+        prev.src = URL.createObjectURL(file);
+      }
+    }
+  </script>
+   <script>
+    function setemail(){
+      document.getElementById("txtEmail").value=localStorage.getItem("activeuser");
+    }
+  </script>
+</head>
+
+<body onload="setemail();">
+   <nav class="navbar p-0 mb-3" style="background-color: beige;">
+        <div class="container-fluid ">
+            <a class="navbar-brand" href="#">
+                <img src="pics/pngtree-green-leaf-logo-organic-life-design-vector-png-image_43723186.png" alt="Logo"
+                    width="100" height="80">
+                <span style="font-family: cursive;font-size: x-large;"><b>Green Leaf</b></span>
+            </a>
+        </div>
+    </nav>
+  <div class="container text-center p-3" style=" margin-top: 80px; background-color: beige;border-radius: 10px;">
+    <form action="/availmed" method="post" enctype="multipart/form-data" class="p-3 ">
+      <div class="row g-1">
+        <div class="col-4">
+          <div class="card" style="width: 18rem;">
+            <input type="file" id="medpic" name="medpic" onchange="doShowprev(this,medprev)" required>
+            <img src="" class="card-img-top" id="medprev">
+            <div class="card-body">
+              <div class="p-3 mb-2 bg-success text-white">Upload Medicine Picture</div>
+
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <!-- <form class="row g-5 " > -->
+          <div class="col-md-8 mb-4">
+            <label for="inputEmail4" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="txtEmail" name="txtEmail" required readonly>
+          </div>
+          <div class="row mb-5">
+            <div class="col-md-6">
+              <label for="inputAddress" class="form-label">Medicine Name</label>
+              <input type="text" class="form-control" id="txtMed" name="txtMed" required>
+            </div>
+            <div class="col-md-3">
+              <label for="inputAddress2" class="form-label">Expiry Date</label>
+              <!-- <label for="start-date">Select Date:</label> -->
+              <input type="date" id="expdate" name="expdate" required>
+            </div>
+
+            <div class="col-md-3">
+              <label for="inputCity" class="form-label">Company</label>
+              <input type="text" class="form-control" id="txtCompany" name="txtCompany" required>
+            </div>
+          </div>
+          <div class="row mb-5">
+            <div class="col-md-4">
+              <label for="exampleInputEmail1" class="form-label">Packing</label>
+              <!-- <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"> -->
+              <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+              <select class="form-select" aria-label="Default select example" name="packing" required>
+                <option selected>Select The packing</option>
+                <option value="strip packs">Strip packs</option>
+                <option value="bottle">Bottle</option>
+                <option value="vials">Vials</option>
+                <option value="aerosol cans">Aerosol Cans</option>
+                <option value="sachets">Sachets</option>
+              </select>
+            </div>
+            <div class="col-md-2">
+              <label for="inputZip" class="form-label">Quantity</label>
+              <input type="number" class="form-control" id="qty" min="0" value="0" name="qty" required>
+            </div>
+            <div class="col-md-3">
+              <label for="inputCity" class="form-label">Other Information</label>
+              <input type="text" class="form-control" id="txtinfo" name="txtinfo">
+            </div>
+          </div>
+
+          <div class="col-12 " style="margin-top: 20px;">
+            <input type="submit" class="btn btn-danger btn-lg" value="Avail For Needys">
+          </div>
+          <!-- </form> -->
+        </div>
+      </div>
+    </form>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

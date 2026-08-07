@@ -1,0 +1,39 @@
+.signuppic {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin: auto;
+    background-image: url(../pics/pic.jpeg);
+    background-size: cover;
+}
+
+#msgSpan {
+    font-size: medium;
+    text-align: center;
+
+}
+
+.loginpic {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin: auto;
+    background-image: url(../pics/pic.jpeg);
+    background-size: cover;
+}
+
+.emailpres {
+    color: green;
+}
+
+.emailnotpres {
+    color: red;
+}
+
+.ok {
+    color: green;
+}
+
+.notok {
+    color: red;
+}

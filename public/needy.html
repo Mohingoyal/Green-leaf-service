@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GREENLEAF</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/4.0.0/jquery.min.js"></script>
+        <link href="style/style.css" rel="stylesheet">
+        <script>
+            function setemail(){
+                document.getElementById("txtEmail").value=localStorage.getItem("activeuser")
+            }
+        </script>
+        <script>
+            $(document).ready(function(){
+                $("#txtEmail").change(function(){
+                     let regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
+                let email = $(this).val();
+                let res = regex.test(email);
+                if (res == false) {
+                    $("#msgEmail").html("Please add a valid email address").addClass("notok").removeClass("ok")
+                    $(this).css("border-color", "red")
+
+                }
+                else {
+                    $("#msgEmail").html("Valid").addClass("ok").removeClass("notok");
+                    $(this).css("border-color", "green");
+
+                }
+                })
+                $("#txtmobile").change(function(){
+                         let regex = /^(\+\d{1,3}[- ]?)?\d{10}$/
+                let mobile = $(this).val();
+                let res = regex.test(mobile);
+                if (res == false) {
+                    $("#msgmobile").html("Please add a valid mobile number").addClass("notok").removeClass("ok")
+                    $(this).css("border-color", "red")
+
+                }
+                else {
+                    $("#msgmobile").html("Valid").addClass("ok").removeClass("notok");
+                    $(this).css("border-color", "green");
+
+                }
+                })
+            })
+        </script>
+        <script>
+function doShowPrev(fileCtrl,prev){
+    let file=fileCtrl.files[0];
+    if(file){
+        prev.src=URL.createObjectURL(file);
+    }
+}
+        </script>
+</head>
+
+<body onload="setemail();">
+    <nav class="navbar p-0 mb-5" style="background-color: beige;">
+        <div class="container-fluid ">
+            <a class="navbar-brand" href="#">
+                <img src="pics/pngtree-green-leaf-logo-organic-life-design-vector-png-image_43723186.png" alt="Logo"
+                    width="100" height="80">
+                <span style="font-family: cursive;font-size: x-large;"><b>Green Leaf</b></span>
+
+            </a>
+           
+
+        </div>
+    </nav>
+    <form action="/ai-read-pic" method="post" enctype="multipart/form-data">
+        <div class="container p-3 " style="background-color: beige;border-radius: 12px;">
+            <div class="row g-3 mb-3 justify-content-center">
+                <div class="col-md-4">
+                    <label for="inputEmail4" class="form-label">Email ID</label>
+                    <input type="email" class="form-control" id="txtEmail" name="txtEmail" required readonly>
+                    <span id="msgEmail"></span>
+                </div>
+                <div class="col-md-5">
+                    <label for="inputEmail4" class="form-label">Mobile Number</label>
+                    <input type="text" required class="form-control" id="txtmobile" name="mobile">
+                    <span id="msgmobile"></span>
+                </div>
+            </div>
+            <div class="row g-5 justify-content-center mb-3">
+                <div class="col-md-4">
+                    <div class="card text-center p-3">
+                        <input type="file" name="apicf" class="mb-2" onchange="doShowPrev(this,front);">
+                        <img src="" class="card-img-top" alt="" height="250" id="front">
+                        <div class="card-body">
+
+                            <a href="#" class="btn btn-primary">Aadhar Card Front picture</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-center p-3">
+                        <input type="file" name="apicr" class="mb-2" onchange="doShowPrev(this,rear);">
+                        <img src="" class="card-img-top" alt="" height="250" id="rear">
+                        <div class="card-body">
+
+                            <a href="#" class="btn btn-primary">Aadhar Card Rear picture</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-3 justify-content-center mt-3">
+               
+<input type="submit" class="btn btn-success col-md-3" value="Upload details">
+            
+            </div>
+        </div>
+    </form>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

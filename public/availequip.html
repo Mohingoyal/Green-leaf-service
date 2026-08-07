@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GREENLEAF</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+     <script>
+    function setemail(){
+      document.getElementById("txtEmail").value=localStorage.getItem("activeuser");
+    }
+  </script>
+  <script>
+    function docheck1(radid) {
+      document.getElementById("amount").disabled = true;
+    }
+    function docheck2(radid) {
+      document.getElementById("amount").disabled = false;
+    }
+    function doShowprev(fileCtrl, prev) {
+      let files = fileCtrl.files[0];
+      if (files) {
+        prev.src = URL.createObjectURL(files);
+      }
+
+    }
+  </script>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body onload="setemail();">
+    <nav class="navbar p-0 mb-3" style="background-color: beige;">
+        <div class="container-fluid ">
+            <a class="navbar-brand" href="#">
+                <img src="pics/pngtree-green-leaf-logo-organic-life-design-vector-png-image_43723186.png" alt="Logo"
+                    width="100" height="80">
+                <span style="font-family: cursive;font-size: x-large;"><b>Green Leaf</b></span>
+            </a>
+        </div>
+    </nav>
+  <div class="container p-3 g-4" style="background-color: beige;border-radius: 10px;">
+    <form action="avail-for-needy" method="post" enctype="multipart/form-data">
+      <div class="col-md-7 mb-4">
+        <label for="inputEmail4" class="form-label">Emailid</label>
+        <input type="email" class="form-control" id="txtEmail" name="txtEmail" required readonly>
+      </div>
+      <div class="row gap-3">
+        <div class="col-md-6 mb-4">
+          <label for="inputPassword4" class="form-label">Medical Equipment Type</label>
+          <input type="text" class="form-control" id="txtmedequip" name="txtmedequip" required>
+        </div>
+        <div class="col-md-4 mb-3">
+          <label for="inputAddress" class="form-label">Condition</label>
+          <select class="form-select" name="medcond" aria-label="Default select example" required>
+            <option selected>Select the condition of equipment</option>
+            <option value="refurbish">Refurbished</option>
+            <option value="new">New</option>
+            <option value="used">Used</option>
+            <option value="scrap">Parts only/scrap</option>
+
+          </select>
+        </div>
+      </div>
+      <div class="container justify-content-center mt-4 gap-5">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="status" id="inlineRadio1" value="Donation"
+            onclick="docheck1(this)">
+          <label class="form-check-label" for="inlineRadio1">Donation</label>
+        </div>
+        <div class="form-check form-check-inline " style="margin-left: 90px; margin-right: 120px;">
+          <input class="form-check-input" type="radio" name="status" id="inlineRadio2" value="For Sale"
+            onclick="docheck2(this)">
+          <label class="form-check-label" for="inlineRadio2">For Sale</label>
+        </div>
+        Amount(Rs.)
+        <input type="number" value="0" min="0" id="amount" name="amount" disabled placeholder="0">
+      </div>
+      <div class="row justify-content-center mt-4 gap-3">
+        <div class="card" style="width: 18rem;">
+          <input class="form-control" type="file" id="pic1" name="pic1" onchange="doShowprev(this,pic1prev)" required>
+          <img src="" class="card-img-top" alt="" id="pic1prev" height="200">
+          <div class="card-body">
+
+            <div class="p-3 mb-2 bg-success text-white">Picture-1</div>
+          </div>
+        </div>
+        <div class="card" style="width: 18rem;">
+          <input class="form-control" type="file" id="pic2" name="pic2" onchange="doShowprev(this,pic2prev)" required>
+          <img src="" class="card-img-top" alt="" id="pic2prev" height="200">
+          <div class="card-body">
+
+
+            <div class="p-3 mb-2 bg-success text-white">Picture-2</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-floating mt-4">
+        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" name="otherinfo"
+          style="height: 100px"></textarea>
+        <label for="floatingTextarea2">Other Information</label>
+      </div>
+
+      <div class="col-12 text-center mt-5">
+        <input type="submit" class="btn btn-success" value="Avail for needy">
+      </div>
+    </form>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

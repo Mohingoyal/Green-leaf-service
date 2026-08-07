@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GREENLEAF</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
+         <script>
+function setemail(){
+  document.getElementById("txtEmail").value=localStorage.getItem("activeuser");
+}
+         </script>
+         <script>
+        function doShowPrev(fileCtrl,prev){
+            let file=fileCtrl.files[0];
+            if(file)
+        {
+              prev.src = URL.createObjectURL(file);
+        }
+
+        }
+         </script>
+</head>
+
+<body onload="setemail();">
+      <nav class="navbar p-0 mb-5" style="background-color: beige;">
+        <div class="container-fluid ">
+            <a class="navbar-brand" href="#">
+                <img src="pics/pngtree-green-leaf-logo-organic-life-design-vector-png-image_43723186.png" alt="Logo"
+                    width="100" height="80">
+                <span style="font-family: cursive;font-size: x-large;"><b>Green Leaf</b></span>
+            </a>
+        </div>
+    </nav>
+    <form action="/register" enctype="multipart/form-data" method="post">
+    <div class="container p-5" style="background-color: beige;border-radius: 12px;">
+        <div class="row g-3">
+
+        <div class="col-md-4">
+
+            <div class="card text-center">
+                <input type="file" name="regproof" id="reg_proof" onchange="doShowPrev(this,prev)" required>
+                <div class="pt-4">
+                <img src="" id="prev" class="card-img-top" alt="" width="350" height="350" ></div>
+                <div class="card-body">
+                    
+                    <a href="#" class="btn btn-primary text-light">Registration Proof</a>
+                </div>
+            </div>
+        </div>
+     <div class="col-md-8">
+         <div class="col-md-6 mb-2">
+    <label for="inputEmail4" class="form-label">Email Id</label>
+    <input type="email" required class="form-control" id="txtEmail" name="txtEmail" readonly >
+  </div>
+  <div class="row g-3 mb-2">
+    <div class="col-md-4">
+    <label for="inputCity" class="form-label">NGO Name</label>
+    <input type="text" required class="form-control" id="inputCity" name="txtngo" >
+  </div>
+  <div class="col-md-5">
+    <label for="inputCity" class="form-label">Registered Office Address</label>
+    <input type="text" required class="form-control" id="inputCity" name="reg_off" >
+  </div>
+  <div class="col-md-3">
+    <label for="inputCity" class="form-label">City</label>
+    <input type="text" required class="form-control" id="inputCity" name="city">
+  </div>
+  </div>
+  <div class="row g-3 mb-2">
+   <div class="col-md-5">
+    <label for="inputCity" class="form-label">Official Website Link</label>
+    <input type="text" required class="form-control" id="inputCity" name="website">
+  </div>
+  <div class="col-md-4">
+    <label for="inputCity" class="form-label">Contact Number</label>
+    <input type="text" required inputmode="numeric" class="form-control" id="inputCity" name="mobile"><!--apply regex-->
+  </div>
+  <div class="col-md-3">
+    <label for="inputCity" class="form-label">Establishment date</label>
+    <input type="date" required class="form-control" id="inputCity" name="date">
+  </div>
+  </div>
+  <div class="row g-3 mb-2">
+    <div class="col-md-5">
+    <label for="inputCity" class="form-label">Chair Person </label>
+    <input type="text" required class="form-control" id="inputCity" name="chair_per">
+  </div>
+  <div class="col-md-7">
+    <label for="inputCity" class="form-label">NGO Profile</label>
+    <input type="text" required class="form-control" id="inputCity" name="ngo_pro">
+  </div>
+  </div>
+  <div class="row g-3 mb-4">
+<div class="col-md-8">
+    <label for="inputCity" class="form-label">Registration Number</label>
+    <input type="text" required class="form-control" id="inputCity" name="reg_num" >
+  </div>
+  </div>
+  <div class="row justify-content-center">
+    <input type="submit" class="btn btn-success col-md-3" value="Register Now" >
+  </div>
+    </div>
+    </div>
+    
+</div>
+</form>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

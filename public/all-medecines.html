@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GREENLEAF</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
+<script>
+    let myModule=angular.module("modulekuch",[]);
+    let myController=myModule.controller("controllerkuch",function($scope,$http){
+      $scope.doshowmeddata=function(){
+let url="fetch-med-data";
+$http.get(url).then(function(resp){
+    $scope.jsonArray=resp.data;
+},function(err){
+    alert(err)
+})
+      }
+      //===========
+      $scope.doshowdetails=function(obj){
+$scope.objone=obj;
+      }
+    })
+</script>
+  </head>
+  <body ng-app="modulekuch" ng-controller="controllerkuch" ng-init="doshowmeddata();">
+     <nav class="navbar p-0 mb-5" style="background-color: beige;">
+        <div class="container-fluid ">
+            <a class="navbar-brand" href="#">
+                <img src="pics/pngtree-green-leaf-logo-organic-life-design-vector-png-image_43723186.png" alt="Logo"
+                    width="100" height="80">
+                <span style="font-family: cursive;font-size: x-large;"><b>Green Leaf</b></span>
+            </a>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row g-3">
+            <div class="col-md-3" ng-repeat="obj in jsonArray">
+            <div class="card text-center border-info" >
+  <img src="{{obj.picurl}}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Donor Email id: {{obj.emailid}}</h5>
+    <p class="card-text">Medecine Name: {{obj.medname}}</p>
+    <p class="card-text">Quantity: {{obj.qty}}</p>
+    <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#detailModal" ng-click="doshowdetails(obj);">Details</a>
+  </div>
+</div>
+</div>
+        </div>
+    </div>
+    <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Medicine details</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body ">
+        <center>
+<img src="{{objone.picurl}}" width="300" height="200">
+        </center>
+        <br>
+        <table class=" table table-primary  table-hover text-center">
+            <tr>
+            <th>Donor Email id</th>
+            <th>Medicine Name</th>
+            <th>Expiry date</th>
+            <th>Company</th>
+            <th>Packing</th>
+            <th>Quantity</th>
+            <th>Information</th>
+            </tr>
+            <tr>
+<td>{{objone.emailid}}</td>
+<td>{{objone.medname}}</td>
+<td>{{objone.expdate}}</td>
+<td>{{objone.company}}</td>
+<td>{{objone.packing}}</td>
+<td>{{objone.qty}}</td>
+<td>{{objone.info}}</td>
+            </tr>
+        </table>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  </body>
+</html>

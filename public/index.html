@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GREENLEAF</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="style/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#ShowHidePwd").mousedown(function () {
+                $(this).removeClass("fa-eye-slash").addClass("fa-eye");
+                $("#txtPwd2").prop("type", "text")
+
+            })
+            $("#ShowHidePwd").mouseup(function () {
+                $(this).removeClass("fa-eye").addClass("fa-eye-slash");
+                $("#txtPwd2").prop("type", "password")
+
+            })
+            //===================================
+            $("#txtPwd2").keyup(function () {
+                let regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+                let pwd = $(this).val();
+                let res = regex.test(pwd);
+                if (res == false) {
+                    $(this).css("border-color", "red")
+                    $("#msgPwd").html("Password should be At least 8 characters, one uppercase, one lowercase, one digit, and one special character").addClass("notok").removeClass("ok")
+                }
+                else {
+                    $(this).css("border-color", "green")
+                    $("#msgPwd").html("Valid").addClass("ok").removeClass("notok");
+
+                }
+            })
+
+            //============================
+            //had to remove kyuki double call pad rahi thi
+            // $("#txtEmail2").change(function () {
+            //     let regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
+            //     let email = $(this).val();
+            //     let res = regex.test(email);
+            //     if (res == false) {
+            //         $("#msgEmail").html("Please add a valid email address").addClass("notok").removeClass("ok")
+            //         $(this).css("border-color", "red")
+
+            //     }
+            //     else {
+            //         $("#msgEmail").html("Valid").addClass("ok").removeClass("notok");
+            //         $(this).css("border-color", "green");
+
+            //     }
+            // })
+            // //==========================
+            $("#showhidepwd").mousedown(function () {
+                $(this).removeClass("fa-eye-slash").addClass("fa-eye");
+                $("#txtPwd").prop("type", "text")
+
+            })
+            $("#showhidepwd").mouseup(function () {
+                $(this).removeClass("fa-eye").addClass("fa-eye-slash");
+                $("#txtPwd").prop("type", "password")
+
+            })
+            //=============================
+            $("#txtEmail").change(function () {
+                let regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
+                let email = $(this).val();
+                let res = regex.test(email);
+                if (res == false) {
+                    $("#emailmsg").html("Please add a valid email address").addClass("notok").removeClass("ok")
+                    $(this).css("border-color", "red")
+                }
+                else {
+                    $("#emailmsg").html("Valid").addClass("ok").removeClass("notok");
+                    $(this).css("border-color", "green");
+
+                }
+            })
+            //-------------------------
+            $("#txtPwd").keyup(function () {
+                let regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+                let pwd = $(this).val();
+                let res = regex.test(pwd);
+                if (res == false) {
+                    $(this).css("border-color", "red")
+                    $("#pwdmsg").html("Password should be At least 8 characters, one uppercase, one lowercase, one digit, and one special character").addClass("notok").removeClass("ok")
+                }
+                else {
+                    $(this).css("border-color", "green")
+                    $("#pwdmsg").html("Valid").addClass("ok").removeClass("notok");
+
+                }
+            })
+            //===========================
+            $("#utype").change(function () {
+                if ($(this).val() == "none") {
+                    $("#utypemsg").html("Please Choose a user type").addClass("notok").removeClass("ok")
+                    $(this).css("border-color", "red")
+
+                }
+                else {
+                    $("#utypemsg").html("").addClass("ok").removeClass("notok")
+                    $(this).css("border-color", "green")
+
+                }
+            })
+            //=============================
+            $("#btnsignup").click(function () {
+                let obj = {
+                    url: "/signup-process",
+                    data: {
+                        emailid: $("#txtEmail").val(),
+                        pwd: $("#txtPwd").val(),
+                        utype: $("#utype").val()
+                    }
+                }
+                $.ajax(obj).then(function (respStr) {
+                    //    alert(respStr);
+                    //    $("#msgSpan").html(respStr);
+                    if (respStr == "true") {
+                        $("#msgSpan").html("User registered successfully!!").css("color", "green");
+                        alert("Congratulations!!You have been signed up into Green Leaf, now you can login to your account and avail our services.")
+                    }
+                    else {
+                        $("#msgSpan").html("Registration couldn't be completed").css("color", "red");
+                        alert("try again")
+                    }
+
+                }).fail(function (err) {
+                    alert(err.message);
+                })
+            })
+            //===============================
+            $("#btnclear").click(function () {
+                $("#txtEmail").val("");
+                $("#txtPwd").val("");
+                $("#utype").val("none");
+
+            })
+            //===============================
+            $("#btnlogin").click(function () {
+                let obj = {
+                    url: "/login-process",
+                    data: {
+                        emailid: $("#txtEmail2").val(),
+                        pwd: $("#txtPwd2").val()
+                    }
+                }
+                $.ajax(obj).then(function (respStr) {
+                    // alert(respStr);
+                    if (respStr == "invalid credentials") {
+                        $("#msglogin").html(respStr).css("color", "red")
+                    }
+                    else if (respStr == "blocked") {
+                        $("#msglogin").html(respStr).css("color", "red")
+                    }
+                    else
+                    // $("#msglogin").html(respStr).css("color", "green");
+                    {
+                        if (respStr[0].utype == "Donor") {
+                            alert("Welcome to Donor Dashboard!");
+                            location.href = "/dash-donor.html"
+                        }
+                        else if (respStr[0].utype == "Needy") {
+                            alert("Welcome to Collection Dashboard");
+                            location.href = "/dash-needy.html"
+                        }
+                        else if (respStr[0].utype == "NGO") {
+                            alert("Welcome to the NGOs Dashboard");
+                            location.href = "/dash-NGO.html"
+                        }
+                        localStorage.setItem("activeuser", $("#txtEmail2").val());
+                    }
+
+                }).fail(function (err) {
+                    resp.send(err);
+                })
+            })
+            //====================================
+            $("#txtEmail2").change(function () {
+                let obj = {
+                    url: "/email-blur-ajax",
+                    data: {
+                        email: $("#txtEmail2").val()
+
+                    }
+                }
+                $.ajax(obj).then(function (jsonAry) {
+                    if (jsonAry.length == 1) {
+                        $("#msgEmail").html("present in database").addClass("emailpres").removeClass("emailnotpres");
+                    }
+                    else if (jsonAry.length == 0) {
+                        $("#msgEmail").html("not present in database").addClass("emailnotpres").removeClass("emailpres");
+
+                    }
+
+                }).fail(function (err) {
+                    alert(err);
+                })
+            })
+            //=======================
+        })
+    </script>
+</head>
+
+<body>
+    <nav class="navbar p-3 " style="background-color: beige;">
+        <div class="container-fluid ">
+            <a class="navbar-brand" href="#">
+                <img src="pics/pngtree-green-leaf-logo-organic-life-design-vector-png-image_43723186.png" alt="Logo"
+                    width="100" height="80">
+                <span style="font-family: cursive;font-size: x-large;"><b>Green Leaf</b></span>
+
+            </a>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-outline-success me-md-2 btn-lg" data-bs-toggle="modal"
+                    data-bs-target="#SignupModal">Signup</button>
+                <button class="btn btn-outline-success btn-lg" data-bs-toggle="modal"
+                    data-bs-target="#LoginModal">Login</button>
+            </div>
+        </div>
+    </nav>
+    <div class="row">
+        <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active" data-bs-interval="5000" data-bs-pause="hover">
+                    <img src="pics/premium_photo-1683140538884-07fb31428ca6.avif" height="350" class="d-block w-100"
+                        alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+
+                        <p>
+                        <h3>Let's Come together and do whatever we can,for helping the ones in need. </h3>
+                        </p>
+                    </div>
+                </div>
+                <div class="carousel-item" data-bs-interval="5000" data-bs-pause="hover">
+                    <img src="pics/photo-1469571486292-0ba58a3f068b.avif" height="350" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+
+                        <p>
+                        <h3> Our small efforts can actually sustain the true meaning of humanity.</h3>
+                        </p>
+                    </div>
+                </div>
+                <div class="carousel-item" data-bs-interval="5000" data-bs-pause="hover">
+                    <img src="pics/istockphoto-1586911323-612x612.jpg" height="350" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+
+                        <p>
+                        <h3>Some sincere efforts on our end can be the beautiful cause of well being of a fellow human
+                            being. </h3>
+                        </p>
+                    </div>
+                </div>
+                <div class="carousel-item" data-bs-interval="5000" data-bs-pause="hover">
+                    <img src="pics/gettyimages-613253596-612x612.jpg" height="350" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+
+                        <p>
+                        <h3> May we become the reason for somenone's happiness!</h3>
+                        </p>
+                    </div>
+                </div>
+                <!--      -->
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+        <div class="row p-2 text-center" style="background-color: cornsilk;">
+            <h2>Our Services</h2>
+        </div>
+        <div class="container">
+            <div class="row g-3 p-4">
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="pics/photo-1461532257246-777de18cd58b.avif" height="250" class="card-img-top"
+                            alt="...">
+                        <div class="card-body ">
+                            <p class="card-text ">We serve as a common platform for people who wish to contribute<br>
+and those seeking support, especially in the field of medical supplies.<br><br>
+Our work is guided by the fundamental principle of humanity—<br>
+to alleviate the suffering of those in need whenever and wherever possible,<br>
+while ensuring that every individual is treated with dignity, compassion,<br>
+and respect.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="pics/Screenshot 2026-07-23 at 4.11.41 PM.png" height="250" class="card-img-top"
+                            alt="...">
+                        <div class="card-body ">
+                            <p class="card-text ">At Green Leaf, donors can contribute medicines and medical equipment<br>
+such as wheelchairs, arm slings, walking sticks, and many other essential items,<br>
+whether new or gently used. Items that may no longer be useful to the donor<br>
+can make a significant difference in the lives of people who cannot afford these<br>
+supplies and are in urgent need of medical assistance.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="pics/packings-pills-capsules-medicines.jpg" height="250" class="card-img-top"
+                            alt="...">
+                        <div class="card-body ">
+                            <p class="card-text ">Anyone in need of medical supplies can browse through the list of donated<br>
+items as well as equipment available for sale, with search results tailored<br>
+to their city. Green Leaf also provides information about NGOs operating<br>
+in the user's city, enabling them to connect with these organizations<br>
+to find the medicines and medical equipment they require.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="pics/z36.jpg" height="250" class="card-img-top" alt="...">
+                        <div class="card-body ">
+                            <p class="card-text ">After completing registration using government-issued verification documents,<br>
+NGOs can browse medicines and medical equipment listed for donation or sale,<br>
+with search results tailored to their locality. They can procure the required<br>
+quantities of these supplies for fair, responsible, and transparent distribution<br>
+to individuals and communities in need.
+</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row p-2 text-center" style="background-color: cornsilk;">
+            <h2>Know Us</h2>
+        </div>
+
+        <div class="container p-3 " >
+            <div class="row g-2">
+                <div class="col-md-6 ">
+                    <nav class="navbar bg-body-tertiary justify-content-center mb-3">
+                        <div class="container-fluid ">
+                            <span class="navbar-text">
+                                Under the able guidance of:
+                            </span>
+                        </div>
+                    </nav>
+                     <div class="container h-100" style="background-color: antiquewhite;">
+                    <div class="row g-2 p-2 mb-3">
+                        <div class="col-md-4">
+                            <div class="card">
+                                <img src="pics/Screenshot 2026-08-03 at 10.07.03 PM.png" class="card-img-top" style="border-radius: 11px;" alt="..." height="220">
+                                <!-- <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div> -->
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+Learning web development under the guidance of Rajesh Bansal Sir, my mentor at Bangalore Computer Education, Bathinda, has been an incredible journey. As a complete beginner exploring web development for the first time, I could not have asked for a better mentor. His well-structured teaching approach and in-depth explanations helped me understand modern web development concepts with remarkable clarity, all within a short span of time. He made even the most challenging topics feel approachable and enjoyable.<br><br>
+I am truly grateful for his constant guidance, encouragement, and dedication throughout my learning journey. It has been a privilege to have Rajesh Sir as my mentor.
+                        </div>
+                    </div>
+                    <div class="row g-3 p-2 justify-content-center text-center">
+                        <div class="container">
+                            <p><span style="font-size: x-large;">Contact: </span>
+                           
+                           <a href="https://www.instagram.com/banglore_computer_education/" style="text-decoration: none;color: inherit;">
+                            <i class="fa-brands fa-instagram" style="font-size: xx-large;"></i>
+                           </a>
+                            <a href="tel:+919872246056" style="text-decoration: none;color: inherit;">
+                            <i class="fa-solid fa-phone" style="font-size: xx-large;"></i></a>
+                            </p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-md-6 ">
+                    <nav class="navbar bg-body-tertiary justify-content-center mb-3">
+                        <div class="container-fluid ">
+                            <span class="navbar-text">
+                                Meet the developer:
+                            </span>
+                        </div>
+                    </nav>
+                    <div class="container h-100" style="background-color: antiquewhite;">
+                    <div class="row g-2 p-2 mb-3">
+                        <div class="col-md-4">
+                            <div class="card">
+                                <img src="pics/IMG_2398.jpg" class="card-img-top" style="border-radius: 11px;" alt="..." height="220">
+                                <!-- <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div> -->
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+<h3>"The best way to predict the future is to invent it."</h3>
+Hi, I'm <b>Mohin Goyal</b>, a B.Tech student at Thapar Institute of Engineering & Technology, Patiala. I warmly welcome you to <i>Green Leaf</i>, my first major web development project and a platform created with the vision of making healthcare resources more accessible to those in need.<br>
+<i>Green Leaf</i> is the result of countless hours of learning, dedication, and a genuine desire to contribute to society through technology. Every feature on this website has been designed with the hope of connecting generous donors, NGOs, and individuals in need of medical supplies in a simple and meaningful way.<br>
+Thank you for visiting <i>Green Leaf</i>. I hope you have a pleasant experience exploring the platform, and together, we can make a positive difference—one act of kindness at a time.
+                        </div>
+                    </div>
+                    <div class="row g-3 p-2 justify-content-center text-center">
+                        <div class="container">
+                            <p><span style="font-size: x-large;">Contact me: </span>
+                            <a href="https://github.com/Mohingoyal" target="_blank" style="color: inherit;text-decoration: none;">
+                            <i class="fa-brands fa-square-github" style="font-size: xx-large;"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/in/mohin-goyal-ab9550379/" target="_blank" style="color: inherit;text-decoration: none;">
+                                <i class="fa-brands fa-linkedin" style="font-size: xx-large;"></i>
+                            </a>
+                            <a href="tel:+917888538109" style="text-decoration: none;color: inherit;">
+                            <i class="fa-solid fa-phone" style="font-size: xx-large;"></i></a>
+                            </p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row p-2 text-center " style="background-color: cornsilk;">
+            <h2>Reach Us</h2>
+            <!-- <div class="row p-3">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3442.9570260766695!2d76.3737348!3d30.3521712!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391028ab86533db5%3A0x93cc1f72eae1c9a8!2sThapar%20Institute%20of%20Engineering%20%26%20Technology!5e0!3m2!1sen!2sin!4v1784951866219!5m2!1sen!2sin" width="600" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            </div> -->
+        </div>
+          <div class="row p-3 justify-content-center">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3442.9570260766695!2d76.3737348!3d30.3521712!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391028ab86533db5%3A0x93cc1f72eae1c9a8!2sThapar%20Institute%20of%20Engineering%20%26%20Technology!5e0!3m2!1sen!2sin!4v1784951866219!5m2!1sen!2sin"  style="width: 100%;" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            </div>
+              <div class="row p-2 text-center" style="background-color: cornsilk;">
+            <h4><i class="fa-solid fa-copyright"></i>[2026][Mohin Goyal].All rights reserved.</h4>
+        </div>
+        <!-- <nav class="navbar bg-success p-1 mb-3 justify-content-center" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="pics/pngtree-green-leaf-logo-organic-life-design-vector-png-image_43723186.png" alt="Logo" width="80" height="80" class="d-inline-block ">
+                
+            </a>
+            <h3 class="text-light">GREENLEAF</h3>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-outline-info me-md-2" data-bs-toggle="modal"
+                    data-bs-target="#SignupModal">Signup</button>
+                <button class="btn btn-outline-info " data-bs-toggle="modal" data-bs-target="#LoginModal">Login</button> -->
+        <!-- <a href="/donor-profile-btn" class="btn btn-outline-info">Profile</a> -->
+        <!-- <a href="/avail-med-btn" class="btn btn-outline-info">Avail Medicine</a> -->
+        <!-- <a href="/avail-equip-btn" class="btn btn-outline-info">Avail Equipment</a> -->
+        <!-- <a href="/admin-portal-btn" class="btn btn-outline-info">Admin-portal</a>
+                     <a href="/admin-donors-btn" class="btn btn-outline-info">Admin-donors-portal</a> -->
+        <!-- <a href="/admin-dash-btn" class="btn btn-outline-info">Admin-dashboard</a>
+                      <a href="/dash-donors-btn" class="btn btn-outline-info">Donor-dash</a>
+                       <a href="/get-med-btn" class="btn btn-outline-info">Get Medicines</a>
+                          <a href="/get-equip-btn" class="btn btn-outline-info">Get Equipments</a>
+                            <a href="/ngo-reg-btn" class="btn btn-outline-info">NGO registration</a>
+                                                        <a href="/ngo-finder-btn" class="btn btn-outline-info">NGO Finder</a>
+                                                             <a href="/needy-profile-btn" class="btn btn-outline-info">Needy profile</a> -->
+        <!-- //for sending the donor-profile.html page -->
+        <!-- </div>
+
+        </div>
+    </nav> -->
+        <!-------------------------------------------------->
+        <div class="modal fade" id="SignupModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog ">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Signup Modal</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="signuppic"></div>
+                        <form>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                                <input type="email" class="form-control" name="txtEmail" id="txtEmail"
+                                    aria-describedby="emailHelp" required>
+                                <span id="emailmsg"></span>
+
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Password</label>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <input type="password" class="form-control " id="txtPwd" name="txtPwd">
+                                    </div>
+
+                                    <i class="fa-solid fa-eye-slash" id="showhidepwd"></i>
+                                </div>
+                                <span id="pwdmsg"></span>
+                            </div>
+                            <div>
+                                User Type
+                                <select class="form-select" aria-label="Default select example "
+                                    style="margin-top: 8px;" name="utype" id="utype" required>
+                                    <option selected value="none">Select </option>
+                                    <option value="Donor">Donor</option>
+                                    <option value="Needy">Needy</option>
+                                    <option value="NGO">NGO</option>
+
+                                </select>
+                                <span id="utypemsg"></span>
+                            </div>
+                            <!-- <div style="width: 70px;height: 70px;border: 2px black solid;" >
+                            <center>
+                        <img src="pics/images.jpeg" class="img-thumbnail" alt="...">
+                        </center>
+                        </div> -->
+                        </form>
+                        <center>
+                            <button type="button" class="btn btn-outline-success mt-4" id="btnsignup">SignUp
+                                Now</button>
+                            <button type="button" class="btn btn-outline-success mt-4" id="btnclear">Clear</button>
+                            <br>
+                            <span id="msgSpan"></span>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="LoginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Login Modal </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="loginpic"></div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="txtEmail2" aria-describedby="emailHelp" required>
+                        <span id="msgEmail">*</span>
+
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <input type="password" class="form-control" id="txtPwd2" required>
+                            </div>
+                            <i class="fa-solid fa-eye-slash" id="ShowHidePwd"></i>
+                        </div>
+                        <span id="msgPwd">*</span>
+                    </div>
+                </div>
+                <div>
+                    <center>
+
+                        <button type="button" class="btn btn-outline-success mb-3" id="btnlogin">Login</button>
+                        <br>
+
+                        <span id="msglogin" style="margin-bottom: 15px;"></span>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
