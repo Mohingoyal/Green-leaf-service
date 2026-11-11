@@ -71,6 +71,7 @@ app.get("/signup-process", function (req, resp) {
             // });
         }
         else {
+            console.log(err.message)
             resp.send(err.message);
             console.log("fail")
         }
